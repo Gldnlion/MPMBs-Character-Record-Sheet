@@ -30,9 +30,9 @@ SourceList["JI:H"] = {
 RaceList["Feline"] = {
 	regExpSearch : /^(?=.*Feline).*$/i,
 	name : "Feline",
-	sortname : "Felinei",
+	sortname : "Feline",
 	source : ["JI:H", 0],
-	plural : "Felinei",
+	plural : "Feline",
 	size : 3,
 	speed : { walk : { spd : 30, enc : 20 } },
 	languageProfs : ["Eastern Common", 1],
