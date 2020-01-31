@@ -56,7 +56,7 @@ CreatureList["bone sential"] = { //Object name; Note the use of only lower case!
 	skills : { // Optional; any skill proficiencies the creature has. Enter the name of the skill with the total bonus in that skill, not just the proficiency bonus, but inlcude the ability score modifier as well!
         "perception" : 6,
         "investigation" : 6,
-        "stealth" | 7,
+        "stealth" : 7,
 	}, // if the creature has no skill proficiencies, you can delete the entire traits entry
 
 	//damage_vulnerabilities : "radiant", // Optional; damage vulnerabilitie(s) the creature has. This line can be deleted if you don't have anything to put here
