@@ -1,20 +1,180 @@
 /*	-WHAT IS THIS?-
-	The script featured here is an explanation of how to make your own custom addition to MPMB's D&D 5e Character Tools.
-	To add your own content to the Character Sheet, use the syntax below and save it in a file. You can then import this file directly to the sheet using the "Import" button and "Import/Export" bookmark.
-	There you can either import the file as a whole or just copy the text into a dialogue.
+	This file adds optional material to "MPMB's Character Record Sheet" found at https://flapkan.com/mpmb/charsheets
+	Import this file using the "Add Extra Materials" bookmark.
 	-KEEP IN MIND-
-	Note that you can add as many custom codes as you want, either by importing consecutive files or pasting the scripts into the dialogue.
-	It is recommended to enter the code in a freshly downloaded or reset sheet before adding any other information so that there won't be any conflicts.
+	It is recommended to enter the code in a fresh sheet before adding any other information (i.e. before making your character with it).
 */
 
-/*	-INFORMATION-
-	Subject:	Creature
-	Effect:		This is the syntax for adding a creature that can be used on the Companion and Wild Shape pages
-	Sheet:		v12.999 (2018-06-04)
+/*  -INFORMATION-
+	Subject:	Subclass
+	Effect:		This script adds a subclass for the Warlock, called "Icherion the Hoarder of Secrets"
+				This subclass is made by Gldnlion
+	Code by:	Gldnlion
+	Date:		2020-01-16 (sheet v12.999)
 */
 
-var iFileName = "CreatureList.js"; // Optional; This is how the file will be named in the sheet if you import it as a file and not copy-paste its content. Only the first occurrence of this variable will be used
-RequiredSheetVersion(12.999); // Optional; This is the minimum required version number of the sheet for the script to work. If the sheet being used to import the script is of an earlier version, the user will be warned
+var iFileName = "Warlock - Icherion the Hoarder of Secrets.js";
+RequiredSheetVersion(12.999);
+
+/*
+var AddWarlockPactBoon = function (boonName, boonObj) {
+	var warInv = ClassList.warlock.features["pact boon"];
+	if (!warInv || (warInv.choices.indexOf(boonName) !== -1 && warInv[boonName.toLowerCase()].source && boonObj.source && warInv[boonName.toLowerCase()].source.toSource() === boonObj.source.toSource())) return; // the exact same thing is being added again, so skip it
+	var useName = boonName;
+	var suffix = 1;
+	while (warInv.choices.indexOf(useName) !== -1) {
+		suffix += 1;
+		useName = boonName + " [" + suffix + "]";
+	};
+	warInv.choices.push(useName);
+	warInv[useName.toLowerCase()] = boonObj;
+};
+*/
+
+SourceList["HB:AC"] = {
+	name: "Homebrew: Aeirlon Campaign",
+	abbreviation: "HB:AC",
+	group: "Homebrew",
+	url: "https://https://homebrewery.naturalcrit.com/share/HkQDjxfpeI",
+	date: "2020/01/29"
+};
+
+AddSubClass("warlock", "Icherion the Hoarder of Secrets", {
+	regExpSearch: /^(?=.*\bicherion)(?=.*hoarder\b).*$/i,
+	subname: "Icherion the Hoarder of Secrets",
+	source: ["HB:AC", 0],
+	spellcastingExtra: ["identify", "speak with animals", "detect thoughts", "locate object", "speak with dead", "clairvoyance", "arcane eye", "locate creature", "legend lore", "passwall"],
+	features: {
+		"subclassfeature1": {
+			name: "Lair of Secrets",
+			source: ["HB:AC", 0],
+			minlevel: 1,
+			description: "\n   " + "Starting at 1st level when you choose this patron, you can send your mind into the lair of Icherion to look among the detritus of secrets provided by its other servants." + "\n   " + "You can use a bonus action to gain advantage on and double your proficiency bonus (if you have one) for an ability check you make that uses Arcana, History, Insight, Nature, Tool Skill,, or Religion." + "Once you do so, you can’t use this feature again until you finish a long rest. You can use this feature twice between long rests starting at 9th level and three times between long rests starting at 18th level.",
+			action: ["bonus action", ""],
+			usages: 1,
+			recovery: "long rest"
+		},
+
+		"subclassfeature1.1": {
+			name: "Sharing Secrets",
+			source: ["HB:AC", 0],
+			minlevel: 1,
+			description: "\n   " + "Also at 1st level, Icherion begins to make demands upon your soul. Once per day, when you cast a divination spell, " + "\n   " + "you must whispoer a secret for Icherion to add to his lair. As you increase in levels Icherion demands more important and interesting secrets. ",
+			usages: 1,
+			recovery: "long rest"
+		},
+
+		"subclassfeature6": {
+			name: "Magical Secrets",
+			source: ["HB:AC", 0],
+			minlevel: 6,
+			description: "\n   " + "Starting at 6th level, your knowledge of Secrets dealing with magical effects and cosmic forces are developed enough that if you see a spell caster casting a spell, you can use your reaction to make an arcana check to know what the spell is.  If you sucessfully identify the spell the spell and the spell would force you to make a saving throw, you can make that saving throw with advantage. " + "\n   " + "Additionally, your comprehension of magic allows you to access magic beyond your power, but not your knowledge. " + "\n   " + " You can cast from a Spell Scroll even if the spell isn't on your spell list, and you can add your proficiency bonus to the ability check to successfully cast from a Spell Scroll. ",
+		},
+
+		"subclassfeature10": {
+			name: "Secrets of the Damned",
+			source: ["HB:AC", 0],
+			minlevel: 10,
+			description: "\n   " + "At 10th level, you can cast contact other plane (Icherion only) once per long rest. " + "\n   " + "This spell doesn’t count against your number of spells known.",
+			recovery: "long rest",
+			action: ["action", ""],
+			spellcastingBonus: {
+				name: "contact other plane",
+				spells: "contact other plane",
+				selection: "contact other plane"
+			}
+		},
+
+		"subclassfeature14": {
+			name: "The Vision of Icherion",
+			source: ["HB:AC", 0],
+			minlevel: 14,
+			description: "Starting at 14th level, Icherion will sometimes look through your eyes and force its knowledge into your mind. You can use an action and take 1d10 psychic damage, learning the resistances, immunities, traits, and attacks of any creature you observe for 1 minute or more. You must be able to see or hear the target and the full breadth of what you learn is at the discretion of the GM (particularly obscure monsters may reveal very little).",
+			action: ["action", ""]
+		}
+	}
+});
+
+/* 
+AddFeatureChoice(
+	ClassList.warlock.features["pact boon"], false, "Pact of the Bones", {
+	name: ["Pact of the Bones"],
+	source: ["HB:AC", 0],
+	description: desc(
+		["Icherion grants you a bag of bones. While the bones are on your person, you cast the augury spell with the bag (arcane focus) (or as a ritual). The spell doesn’t count against your number of spells known.",
+			"The bones can also be dumped (cannot do augury while this is in use) to call forth a skeleton under your control. ",
+			"If you lose your bag of Bone, you can perform a 1-hour ceremony to receive a replacement from Icherion. The ceremony can be performed during a short or long rest, and it destroys the previous bag. The cbag disappears in a flash of light when you die."]),
+	spellcastingBonus: {
+		name: ["Pact of the Bones"],
+		spells: ["augury"],
+		selection: ["augury"],
+		firstCol: ["(R)"],
+		prereqeval: function (v) {
+			return classes.known.warlock && classes.known.warlock.subclass == "warlock-the seeker" ? true : "skip"
+		}
+	}
+}); 
+*/
+
+AddWarlockPactBoon("Pact of the Bones", {
+	name: "Pact of the Bones",
+	source: ["HB", 0],
+	description: "\n   " + "Icherion grants you a bag of bones. While the bones are on your person, you cast the augury spell with the bag (arcane focus) (or as a ritual). The spell doesn’t count against your number of spells known." + "\n   " + "The bones can also be dumped (cannot do augury while this is in use) to call forth a skeleton under your control." + "\n   " + "If you lose your bag of Bone, you can perform a 1-hour ceremony to receive a replacement from Icherion. The ceremony can be performed during a short or long rest, and it destroys the previous bag. The cbag disappears in a flash of light when you die.",
+	//usages : 1,
+	//recovery : "short rest",
+	spellcastingBonus: {
+		name: "Pact of the Bone",
+		spells: "augury",
+		selection: "augury",
+		firstCol: "(R)"
+	}
+});
+
+//add the invocations
+AddWarlockInvocation("Summon Multiple Skeletons", {
+	name: "Summon Multiple Skeletons",
+	description: "\n   " + "Prerequisite:Pact of the Bones, You can summon one addtional skeleton (2 addtional at warlock level 7, 3 at warlock level 11 and 4 at warlock level 15)",
+	source: ["HB:AC", 3],
+	prereqeval: "classes.known.warlock.subclass === 'Icherion the Hoarder of Secrets' && What('Class Features Remember').indexOf('warlock,pact boon,Pact of the Bones') !== -1",
+});
+
+AddWarlockInvocation("improved skeletons (fire/ice)", {
+	name: "improved skeletons (fire/ice)",
+	description: "\n   " + "Prerequisite:Pact of the Bones & Warlock Lvl 11, Your summoned skeleton can do an additional 1d6 fire or cold dammage. All the skeletons do the same type of addtional damange",
+	source: ["HB:AC", 3],
+	prereqeval: "classes.known.warlock.subclass === 'Icherion the Hoarder of Secrets' && What('Class Features Remember').indexOf('warlock,pact boon,Pact of the Bones') !== -1",
+});
+
+AddWarlockInvocation("divining nones", {
+	name: "divining bones",
+	description: "\n   " + "Prerequisite:Pact of the Bones & Warlock Lvl 11, Your summoned skeleton can do an additional 1d6 fire or cold dammage. All the skeletons do the same type of addtional damange",
+	source: ["HB:AC", 3],
+	usages: 1,
+	recovery: "long rest",
+	prereqeval: "classes.known.warlock.subclass === 'Icherion the Hoarder of Secrets' && What('Class Features Remember').indexOf('warlock,pact boon,Pact of the Bones') !== -1",
+});
+
+AddWarlockInvocation("psychic damage", {
+	name: "make familiar invisible",
+	description: "\n   " + "Prerequisite:Pact of the blade & Warlock Lvl 6, your pact weapon does psychic damage.",
+	source: ["HB:AC", 3],
+	prereqeval: "classes.known.warlock.subclass === 'Icherion the Hoarder of Secrets' && What('Class Features Remember').indexOf('warlock,pact boon,pact of the blade') !== -1",
+});
+
+AddWarlockInvocation("make familiar invisible", {
+	name: "make familiar invisible",
+	description: "\n   " + "Prerequisite:Pact of the chain & Warlock Lvl 6, you can cast invisiblity on your familiar as a bonus action one per short rest.",
+	source: ["HB:AC", 3],
+	usages: 1,
+	recovery: "short rest",
+	spellcastingBonus: {
+		name: "Pact of the chain",
+		spells: "invisibility",
+		selection: "invisibility"
+	},
+	prereqeval: "classes.known.warlock.subclass === 'Icherion the Hoarder of Secrets' && What('Class Features Remember').indexOf('warlock,pact boon,pact of the chain') !== -1"
+});
+
 
 CreatureList["bone sential"] = { //Object name; Note the use of only lower case! Also note the absence of the word "var" and the use of brackets [] //the name entered here is used to identify the input, so it has to be the same as the "name : " below, but in lower case
 
