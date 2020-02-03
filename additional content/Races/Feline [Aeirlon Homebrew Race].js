@@ -58,7 +58,7 @@ WeaponsList["feline claws"] = {
 	type : "Natural",
 	damage : [1, 4, "slashing"],
 	range : "Melee",
-	description : "Finesse; Con save or paralyzed until the start of my next turn (DC 8+Con+Prof)",
+	description : "You are proficient with your unarmed strikes which deal 1d4 slashing damage and are considered finesse weapons.",
 	abilitytodamage : true,
 	monkweapon : true
 };	
